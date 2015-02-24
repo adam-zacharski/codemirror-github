@@ -1,0 +1,4 @@
+node_modules
+npm-debug.log
+public/script.min.gcc.js
+slim.min.gcc.js
