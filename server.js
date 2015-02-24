@@ -2,15 +2,14 @@ var express = require('express');
 var fs = require('fs');
 var https = require('https');
 var crypto = require('crypto');
+var compressor = require('node-minify');
 
 var app = express();
 
-
-var compressor = require('node-minify');
 var slim;
-// Using Google Closure
+
 new compressor.minify({
-    type: 'gcc',
+    type: 'uglifyjs',
     fileIn: 'slim.js',
     fileOut: 'slim.min.gcc.js',
     callback: function(err, min) {
@@ -19,7 +18,7 @@ new compressor.minify({
 });
 
 new compressor.minify({
-    type: 'gcc',
+    type: 'uglifyjs',
     fileIn: 'public/script.js',
     fileOut: 'public/script.min.gcc.js',
     callback: function(err, min) {
@@ -54,7 +53,6 @@ app.get('*', function(req, res) {
 
   //the whole response has been recieved, so we just print it out here
   response.on('end', function() {
-  	console.log('back');
 
   	if (lines)
   	{
@@ -62,9 +60,8 @@ app.get('*', function(req, res) {
   	}
 
   	var b = new Buffer(str).toString('base64');
-//    console.log(str);
 
-res.set('Content-Type', 'text/javascript');
+    res.set('Content-Type', 'text/javascript');
     var shasum = crypto.createHash('sha1');
     shasum.update(req.url);
     var d = shasum.digest('hex');
@@ -73,7 +70,6 @@ res.set('Content-Type', 'text/javascript');
     	+ 'var raw_content="' + b + '";\n'
     	+ slim);
 
-//    res.send();
   });
 };
 
@@ -86,6 +82,6 @@ var server = app.listen(8080, function() {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
+  console.log('CodeMirror GitHub app listening at http://%s:%s', host, port);
 
 });
