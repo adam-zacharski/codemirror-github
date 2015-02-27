@@ -16,6 +16,16 @@ function doneCheck()
 {
   loaded++;
   if (loaded === 1) {
+  var styleNode = document.createElement('style');
+   styleNode.type = "text/css";
+
+   var styleText = document.createTextNode('.CodeMirror {border: 1px solid #eee; height: auto; } ');
+      styleNode.appendChild(styleText);
+
+
+            document.getElementsByTagName('head')[0]
+            .appendChild(styleNode);
+
 
     var css_files = ['codemirror', 'theme/ambiance'];
     css_files.forEach(function(c) {
