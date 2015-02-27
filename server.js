@@ -13,7 +13,7 @@ new compressor.minify({
     fileIn: 'slim.js',
     fileOut: 'slim.min.gcc.js',
     callback: function(err, min) {
-      slim = fs.readFileSync('slim.min.gcc.js').toString();
+      slim = fs.readFileSync('slim.min.gcc.js').toString().replace('__HOST__',process.env.PUBLIC_HOST);
     }
 });
 
