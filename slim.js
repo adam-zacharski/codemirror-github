@@ -4,7 +4,7 @@ document.write('<div id="'+hash_inner+'">a</div>');
 
 if (!window.cm_git_hub)
 	window.cm_git_hub=[];
-window.cm_git_hub.push([hash_inner, link, raw_content]);
+window.cm_git_hub.push([hash_inner, link, atob(raw_content)]);
 
 if(!document.querySelector('#cm_git_hub_script'))
 {
